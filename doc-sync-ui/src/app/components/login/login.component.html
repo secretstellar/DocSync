@@ -1,0 +1,34 @@
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+    <div class="card p-4" style="width: 300px;">
+        <h3 class="text-center mb-4">Doc Sync</h3>
+        <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+            <div class="form-group">
+                <label for="userName">Username</label>
+                <input type="userName" class="form-control" id="userName" name="userName" [(ngModel)]="userName"
+                    required minlength="3" />
+                <div *ngIf="loginForm.controls['userName']?.invalid && loginForm.controls['userName']?.touched ">
+                    <small class="text-danger" *ngIf="loginForm.controls['userName']?.errors?.['required']">Username
+                        is required.</small>
+                    <small class="text-danger" *ngIf="loginForm.controls['userName']?.errors?.['minlength']">Username
+                        must be atleast 3 characters long.</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password"
+                    required pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" />
+                <div *ngIf="loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched ">
+                    <small class="text-danger" *ngIf="loginForm.controls['password']?.errors?.['required']">Password
+                        is required.</small>
+
+                    <small class="text-danger" *ngIf="loginForm.controls['password']?.errors?.['pattern']">Password
+                        must have 8 characters with atleast one number, one letter and one special character.</small>
+                </div>
+            </div>
+            <div class="form-group text-center mt-3">
+                <button type="submit" class="btn btn-primary btn-block me-2">Login</button>
+                <button type="submit" class="btn btn-primary btn-success" (click)="onRegister()">Register</button>
+            </div>
+        </form>
+    </div>
+</div>

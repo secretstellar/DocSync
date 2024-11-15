@@ -1,0 +1,55 @@
+<div class="container pt-5 pb-3 justify-content-center align-items-center">
+    <div *ngIf="isLoading; else ContentLoaded" class="text-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <ng-template #ContentLoaded>
+
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="text-center">Document Sync</h3>
+
+                        <h6>Upload Document</h6>
+                        <div class="form-group d-flex align-items-center">
+                            <input type="file" id="fileUploader" (change)="onFileSelected($event)"
+                                class="form-control mr-3" />
+                            <button (click)="onUpload()" class="btn btn-primary ms-2" [disabled]="!selectedFile">Upload</button>
+                        </div>
+                        <ng-container *ngIf="role==='admin' || role==='manager'">
+                            <div class="mt-5 text-end">
+                                <button (click)="onRefresh()" class="btn btn-success btn-sm text-end">Refresh</button>
+                            </div>
+                            <h6>Document Info</h6>
+                            <div class="table-responsive mt-1">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Sl No</th>
+                                            <th>Document Name</th>
+                                            <th>Status</th>
+                                            <th>Uploaded By</th>
+                                            <th>Uploaded Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let doc of documentInfoList; let i = index">
+                                            <td>{{ i + 1 }}</td>
+                                            <td>{{ doc.documentName }}</td>
+                                            <td> {{ doc.status }}</td>
+                                            <td>{{ doc.createdBy }}</td>
+                                            <td>{{ doc.createdDate }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ng-container>
+                        <!-- <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>
